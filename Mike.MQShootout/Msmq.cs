@@ -26,7 +26,8 @@ namespace Mike.MQShootout
 
         public void Send(T message)
         {
-            sendQueue.Send(message);
+            var envelope = new Message(message) {Recoverable = false};
+            sendQueue.Send(envelope);
         }
 
         public void ReceiveMessage(Action<T> messageReceiver)

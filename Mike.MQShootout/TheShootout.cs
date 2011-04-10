@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 
 namespace Mike.MQShootout
 {
@@ -11,10 +10,8 @@ namespace Mike.MQShootout
             const long numberOfMessages = 10000000;
 
             var nullMq = new NullMq<byte[]>();
-            var receivingMachine = new MessageReceivingMachine(nullMq, numberOfMessages);
-            var sendingMachine = new MessageSendingMachine(nullMq);
 
-            sendingMachine.RunTest(1000, numberOfMessages);
+            new ShootoutTest(nullMq, nullMq).Run(1000, numberOfMessages);
         }
 
         // With 1000000 / 100 bytes
@@ -28,15 +25,11 @@ namespace Mike.MQShootout
         // (had to increase the default msmq storage size to 2G)
         public void Msmq()
         {
-            const long numberOfMessages = 200000;
+            const long numberOfMessages = 1000000;
 
             var msmq = new Msmq<byte[]>();
-            var receivingMachine = new MessageReceivingMachine(msmq, numberOfMessages);
-            var sendingMachine = new MessageSendingMachine(msmq);
 
-            sendingMachine.RunTest(10000, numberOfMessages);
-
-            receivingMachine.WaitForCompletion();
+            new ShootoutTest(msmq, msmq).Run(1000, numberOfMessages);
         }
 
         // Sent 1000000 messages in 4121 ms / 1000 bytes
@@ -51,14 +44,7 @@ namespace Mike.MQShootout
 
             using(var zeroMq = new ZeroMq())
             {
-                var receivingMachine = new MessageReceivingMachine(zeroMq, numberOfMessages);
-                var sendingMachine = new MessageSendingMachine(zeroMq);
-
-                Thread.Sleep(1000);
-
-                sendingMachine.RunTest(1000, numberOfMessages);
-
-                receivingMachine.WaitForCompletion();
+                new ShootoutTest(zeroMq, zeroMq).Run(1000, numberOfMessages);
             }
         }
 
@@ -72,14 +58,17 @@ namespace Mike.MQShootout
 
             using (var activeMq = new ActiveMq())
             {
-                var receivingMachine = new MessageReceivingMachine(activeMq, numberOfMessages);
-                var sendingMachine = new MessageSendingMachine(activeMq);
+                new ShootoutTest(activeMq, activeMq).Run(1000, numberOfMessages);
+            }
+        }
 
-                Thread.Sleep(1000);
+        public void RabbitMq()
+        {
+            const long numberOfMessages = 1000000;
 
-                sendingMachine.RunTest(1000, numberOfMessages);
-
-                receivingMachine.WaitForCompletion();
+            using (var rabbitMq = new Rabbit())
+            {
+                new ShootoutTest(rabbitMq, rabbitMq).Run(1000, numberOfMessages);
             }
         }
     }

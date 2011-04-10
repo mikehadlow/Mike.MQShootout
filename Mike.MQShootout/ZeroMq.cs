@@ -62,11 +62,6 @@ namespace Mike.MQShootout
             serverThread.Start();
         }
 
-        void receiver_PollInHandler(Socket socket, IOMultiPlex revents)
-        {
-            throw new NotImplementedException();
-        }
-
         private bool disposed = false;
         public void Dispose()
         {

@@ -58,6 +58,7 @@
     <Compile Include="NullMq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rabbit.cs" />
+    <Compile Include="ShootoutTest.cs" />
     <Compile Include="StateMachine\SagaSpike.cs" />
     <Compile Include="TheShootout.cs" />
     <Compile Include="ZeroMq.cs" />
