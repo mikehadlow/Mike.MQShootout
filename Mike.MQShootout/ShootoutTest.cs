@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 
 namespace Mike.MQShootout
 {
@@ -18,9 +18,7 @@ namespace Mike.MQShootout
             var receivingMachine = new MessageReceivingMachine(messageReceiver, numberOfMessages);
             var sendingMachine = new MessageSendingMachine(messageSender);
 
-            Thread.Sleep(messageSizeInBytes);
-
-            sendingMachine.RunTest(1000, numberOfMessages);
+            sendingMachine.RunTest(messageSizeInBytes, numberOfMessages);
 
             receivingMachine.WaitForCompletion();            
         }
