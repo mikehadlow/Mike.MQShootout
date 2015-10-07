@@ -40,13 +40,18 @@
     <Reference Include="clrzmq">
       <HintPath>..\ZeroMQ\clrzmq.dll</HintPath>
     </Reference>
-    <Reference Include="RabbitMQ.Client">
-      <HintPath>..\RabbitMQ\RabbitMQ.Client.dll</HintPath>
+    <Reference Include="RabbitMQ.Client, Version=3.5.5.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.3.5.5\lib\net40\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ZeroMQ, Version=4.1.0.42169, Culture=neutral, PublicKeyToken=4a9630883fd6c563, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroMQ.4.1.0.17\lib\net40\ZeroMQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveMq.cs" />
@@ -68,6 +73,17 @@
       <Link>libzmq.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="amd64\libsodium.dll" />
+    <Content Include="amd64\libzmq.dll" />
+    <Content Include="i386\libsodium.dll" />
+    <Content Include="i386\libzmq.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="amd64\libsodium.so" />
+    <None Include="amd64\libzmq.so" />
+    <None Include="i386\libsodium.so" />
+    <None Include="i386\libzmq.so" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
